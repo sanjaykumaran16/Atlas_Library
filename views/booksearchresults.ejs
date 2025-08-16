@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Search Results</title>
+  <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+/* Main Container */
+#book-search-results {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    /* Book Card */
+    .book-item {
+        background-color: #ffffff;
+        width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .book-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .book-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+    .book-details {
+        flex: 1;
+    }
+
+    .book-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #4e54c8;
+        margin-bottom: 10px;
+    }
+
+    .book-item p {
+        font-size: 16px;
+        margin: 4px 0;
+        line-height: 1.5;
+    }
+
+    .book-image {
+        max-width: 200px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    /* No Books Found Message */
+    .no-books {
+        font-size: 20px;
+        color: #888;
+        padding: 20px;
+        background-color: #fff3f3;
+        border: 1px solid #ffcaca;
+        border-radius: 10px;
+    }
+
+    /* Back Button */
+    .button-center {
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #4e54c8;
+        color: white;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .back-button:hover {
+        background-color: #2c2f91;
+        transform: translateY(-2px);
+    }
+
+    .sort-container {
+        align-self: flex-end;
+        position: relative;
+    }
+
+    .sort-button {
+        padding: 10px 16px;
+        background-color: #4e54c8;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .sort-button:hover {
+        background-color: #2c2f91;
+    }
+
+    .sort-dropdown {
+        position: absolute;
+        top: 110%;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        display: none;
+        flex-direction: column;
+        padding: 8px 12px;
+        min-width: 180px;
+        z-index: 100;
+    }
+
+    .sort-dropdown label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 8px;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+    }
+
+    .sort-dropdown label:hover {
+        background-color: #f0f0f0;
+    }
+
+    .sort-dropdown input[type="checkbox"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .borrow-btn {
+        padding: 10px 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .borrow-btn:hover {
+        background-color: #218838;
+    }
+    .book-image {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+    </style>
+    
+</head>
+<body>
+   
+    <%- include('partials/navbar.html') %>
+    <div class="sort-container">
+        <button class="sort-button" onclick="toggleDropdown()">Sort By ▾</button>
+        <div class="sort-dropdown" id="sortDropdown">
+            <label>
+                <input type="checkbox" id="sortDistance"> Distance
+            </label>
+            <label>
+                <input type="checkbox" id="sortPrice"> Price
+            </label>
+        </div>
+    </div>
+    <main id="book-search-results">
+        <% if (books.length === 0) { %>
+            <p class="no-books">No books found.</p>
+        <% } else { %>
+            <% books.forEach(book => { %>
+                <% if (book.availability) { %>
+                    <div class="book-item">
+                        <div class="book-content">
+                            <div class="book-details">
+                                <h2 class="book-title"><%= book.title %></h2>
+                                <p class="book-author">Author: <%= book.author || 'N/A' %></p>
+                                <p class="book-genre">Genre: <%= book.genre || 'N/A' %></p>
+                                <p class="book-price">Price: <%= book.price || 'N/A' %></p>
+                                <p class="book-rating">Rating: <%= book.rating || 'N/A' %></p>
+                                <p class="book-isbn">ISBN Code: <%= book.isbn || 'N/A' %></p>
+                                <p class="book-library">Library: <%= book.library_name || 'N/A' %></p>
+                                <p class="book-distance">Distance: <%= book.distance.toFixed(2) || 'N/A' %> km</p>
+                                <p class="book-availability">Availability: Available</p>
+    
+                                <% if (book.e_book) { %>
+                                    <form action="/e_books/<%= book.e_book %>" method="GET" style="margin-top: 10px;">
+                                        <button type="submit" style="padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                            Get E-Book
+                                        </button>
+                                    </form>
+                                <% } %>
+    
+                                <form action="/member/borrow" method="POST" style="margin-top: 12px;">
+                                    <input type="hidden" name="book_id" value="<%= book.book_id %>">
+                                    <input type="hidden" name="library_name" value="<%= book.library_name %>">
+                                    <input type="hidden" name="due_date" value="<%= new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) %>"> <!-- 2 weeks from now -->
+                                    <button type="submit" class="borrow-btn">Borrow</button>
+                                </form>
+                            </div>
+    
+                            <% if (book.images) { %>
+                                <img class="book-image" src="/ProjectImages/<%= book.images %>" alt="Library Image" />
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        <% } %>
+    </main>
+    
+        <div class="button-center">
+            <a href="/goback" class="back-button">Search Another Book</a>
+        </div>
+    </main>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('sortDropdown');
+            dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+        const distanceCheckbox = document.getElementById('sortDistance');
+        const priceCheckbox = document.getElementById('sortPrice');
+
+        function handleSort() {
+            const searchTerm = encodeURIComponent('<%= searchTerm %>');
+
+            if (distanceCheckbox.checked && priceCheckbox.checked) {
+                window.location.href = `/member/bookSearch/sortbydistanceandprice?search=${searchTerm}`;
+            } else if (distanceCheckbox.checked) {
+                window.location.href = `/member/bookSearch/sortbydistance?search=${searchTerm}`;
+            } else if (priceCheckbox.checked) {
+                window.location.href = `/member/bookSearch/sortbyprice?search=${searchTerm}`;
+            }
+        }
+
+        distanceCheckbox.addEventListener('change', handleSort);
+        priceCheckbox.addEventListener('change', handleSort);
+    });
+    </script>
+    
+</body>
+</html>

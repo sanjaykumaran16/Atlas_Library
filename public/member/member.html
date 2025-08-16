@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles_admin.css">
+</head>
+
+<body>
+    <header id="welcome-header">
+        
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/member">Status</a>
+        <a class="nav-link" href="/bookrecommendation">Book Recommendations</a>
+        <a class="nav-link" href="/bookSearch">Search for Books</a>
+        <a class="nav-link" href="/borrowed">Borrow History</a>
+        <a class="nav-link" href="../login">Logout</a>
+    </nav>
+
+    <section id="dashboard">
+        <h2>Status</h2>
+        <p>This is your dashboard section. You can view your activities and quick stats here.</p>
+    </section>
+</body>
+<script>
+    // Fetch user info from the server
+    fetch('/user-info')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user info');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the header with the user's name
+            const header = document.getElementById('welcome-header');
+            header.textContent = `Welcome, ${data.username}!`;
+        })
+        .catch(error => {
+            console.error('Error fetching user info:', error);
+        });
+</script>
+</html>

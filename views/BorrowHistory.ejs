@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow History</title>
+    <link rel="stylesheet" href="/css/styles_admin.css">
+    <style>
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #4e54c8;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #4e54c8;
+        }
+        .return-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.return-btn:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar.html') %>
+<h1>Borrow History</h1>
+
+<% if (borrowdetails.length > 0) { %>
+    <table>
+        <thead>
+            <tr>
+             
+                <th>Book</th>
+                <th>Author</th>
+                <th>Library</th>
+                <th>Borrow Date</th>
+                <th>Due Date</th>
+                <th>Return Date</th>
+                <th>Fine Amount (₹)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% borrowdetails.forEach(item => { %>
+                <tr>
+                    
+                    <td><%= item.title %></td>
+                    <td><%= item.author || 'Unknown' %></td>
+                    <td><%= item.library_name %></td>
+                    <td><%= new Date(item.borrow_date).toLocaleDateString() %></td>
+                    <td><%= new Date(item.due_date).toLocaleDateString() %></td>
+                    <td><%= item.return_date ? new Date(item.return_date).toLocaleDateString() : 'Not Returned' %></td>
+
+                    <td><%= item.fine_amount ? parseFloat(item.fine_amount).toFixed(2) : '0.00' %></td>
+                    <td>
+                        <% if (!item.return_date) { %>
+                            <form action="/member/returnBook" method="POST">
+                                <input type="hidden" name="borrow_id" value="<%= item.borrow_id %>">
+                                <button type="submit" class="return-btn" >Return</button>
+                            </form>
+                        <% } else { %>
+                            Returned
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p style="text-align:center;">No borrow history found.</p>
+<% } %>
+
+</body>
+</html>

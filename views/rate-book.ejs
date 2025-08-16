@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rate the Book</title>
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f3f6fd;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      background: linear-gradient(90deg, #5f60f3, #9e65f3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: linear-gradient(to right, #5f60f3, #9e65f3);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #4b4cbd, #8849e1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Thank you for returning the book!</h1>
+    <form action="/rating" method="POST">
+      <input type="hidden" name="book_id" value="<%= book_id %>">
+      <label for="rating">Rate this book (1 to 5):</label>
+      <input type="number" name="user_rating" id="rating" min="1" max="5" required>
+      <br>
+      <button type="submit">Submit Rating</button>
+    </form>
+  </div>
+
+</body>
+</html>

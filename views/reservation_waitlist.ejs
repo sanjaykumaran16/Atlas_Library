@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Confirmed</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Optional: Link to your CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .book-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .message {
+            color: #333;
+            margin-top: 10px;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .btn-home {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-home:hover {
+            background-color: #004d99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="book-title"><%= book.title %></div>
+        <div class="message"><%= message %></div>
+
+        <div class="details">
+            <p><strong>Author:</strong> <%= book.author %></p>
+            <p><strong>Book ID:</strong> <%= book.book_id %></p>
+            <% if (book.due_date) { %>
+                <p><strong>Expected Return Date:</strong> <%= new Date(book.due_date).toDateString() %></p>
+            <% } %>
+        </div>
+
+        <a href="/goback" class="btn-home">Search another book</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles_mem.css">
+</head>
+
+<body>
+    <header id="welcome-header">
+        
+    </header>
+
+    <nav>
+        <a href="/librarian">Status</a>
+        <a href="/books">Books</a>
+        <a href="/bookAdd">Add Book</a>
+        <a href="/history">History</a>
+        <a href="../login">Logout</a>
+    </nav>
+
+<!--<section id="dashboard">
+        <h2>Status</h2>
+        <p>This is your dashboard section. You can view your activities and quick stats here.</p>
+        <div id="library-info">
+            <h3>Your Library Details</h3>
+            <p>Library Name: <span id="library-name"></span></p>
+            <p>Library Address: <span id="library-address"></span></p>
+           
+        </div>
+    </section>
+ -->
+</body>
+<script>
+    // Fetch user info from the server
+    fetch('/user-info')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user info');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the header with the user's name
+            const header = document.getElementById('welcome-header');
+            header.textContent = `Welcome, ${data.username}!`;
+        })
+        .catch(error => {
+            console.error('Error fetching user info:', error);
+        });
+
+    // Update the dashboard with the library details
+    document.getElementById('library-name').textContent = libraryDetails.name;
+    document.getElementById('library-address').textContent = libraryDetails.address;
+
+</script>
+</html>

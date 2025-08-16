@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= libraryDetails.name %></title>
+    <link rel="stylesheet" href="/css/styles_admin.css">
+    <style>
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #4e54c8;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/librarian.html') %>
+    <h1>Welcome to <%= libraryDetails.name %></h1>
+    <table>
+        <tr>
+            <th>Location</th>
+            <td><%= libraryDetails.address %></td>
+        </tr>
+        <tr>
+            <th>Revenue</th>
+            <td><%= libraryDetails.balance %></td>
+        </tr>
+        <tr>
+            <th>Number of books in library</th>
+            <td><%= bookCount %></td>
+        </tr>
+        <tr>
+            <th>Number of books lent</th>
+            <td><%= borrowCount %></td>
+        </tr>
+        <tr>
+            <th>Most popular author</th>
+            <td><%= favoriteAuthor %></td>
+        </tr>
+        <tr>
+            <th>Most popular genre</th>
+            <td><%= favoriteGenre %></td>
+        </tr>
+        <tr>
+            <th>Most active reader</th>
+            <td><%= topUser %></td>
+        </tr>
+    </table>
+</body>
+</html>
