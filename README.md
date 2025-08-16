@@ -239,17 +239,6 @@ npm install --save-dev jest supertest
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the ISC License.
-
-## 🤝 Support
-
-For support and questions:
-- Check the existing issues in the repository
-- Create a new issue with detailed description
-- Contact the development team
-
 ## 🔮 Future Enhancements
 
 - **Mobile Application**: React Native or Flutter mobile app
